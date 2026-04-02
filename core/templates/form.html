@@ -1,0 +1,22 @@
+<form method="post">
+    {% csrf_token %}
+    
+    <div id="inputs">
+        <input type="text" name="name">
+    </div>
+
+    <button type="button" id="add">Добавить</button>
+    <button type="submit">Отправить</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+let count = 1;
+
+$("#add").click(function() {
+    $("#inputs").append(
+        `<input type="text" name="name${count}">`
+    );
+    count++;
+});
+</script>
