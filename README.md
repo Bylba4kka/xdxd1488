@@ -14,7 +14,7 @@ sudo snap refresh
 
 3. Создать виртуальное окружение 
     ```bash
-    python -m venv venv
+    python3 -m venv venv
     ```
 
 4. Установить зависимости 
