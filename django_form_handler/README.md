@@ -22,9 +22,12 @@ sudo snap refresh
     pip install -r requirements.txt
     ```
 
+создаем папку для сокета
+mkdir -r /run/uwsgi
+
 5. Запустить проект  
     ```bash
-    uwsgi --ini uwsgi.ini
+    uwsgi --ini uwsgi.ini --daemonize uwsgi.log
     ```
 
 6. Устанавливаем nginx 
@@ -35,13 +38,13 @@ sudo snap refresh
 7. Созданиём конфигурацию для проекта `sudo nano /etc/nginx/sites-available/django_form_handler` и вставляем:
     ```
     server {
-        listen 80;
+        listen 1488;
 
         server_name YOUR_SERVER_IP;
 
         location / {
             include uwsgi_params;
-            uwsgi_pass unix:/UWSGI_PASS;
+            uwsgi_pass unix:/run/uwsgi/project.sock;
         }
     }
 
@@ -49,6 +52,18 @@ sudo snap refresh
 
     Где,
 
-    YOUR_SERVER_IP - IP виртуальной машины (например 123.45.67.89/)
-    UWSGI_PASS - полный путь к сокету uWSGI (например /home/django_form_handler/project.sock)
+    YOUR_SERVER_IP - IP виртуальной машины (например 123.45.67.89)
+    ip addr show (inet)
 
+
+
+символическая ссылка
+sudo ln -s /etc/nginx/sites-available/django_form_handler/etc/nginx/sites-enabled/
+
+проверка конфигурации
+sudo nginx -t
+
+перезапускам 
+sudo systemctl restart nginx
+
+добавляем в  django_form_handler/settings.py в ALLOWED_HOSTS наш айпи сервера
