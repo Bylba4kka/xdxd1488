@@ -1,4 +1,9 @@
-1. Запустить в VirtualBox Linux (Ubuntu 20.04+) - можно скачать сразу готовый образ тут — https://www.osboxes.org/ubuntu/
+
+Деплой на линукс сервер
+
+cd /home/
+sudo apt install && sudo apt upgrade -y
+sudo snap refresh 
 
 1. Скачать python `sudo apt-get update && sudo apt-get install python3`
 
